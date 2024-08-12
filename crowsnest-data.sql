@@ -402,14 +402,6 @@ INSERT INTO public.integration_methods VALUES ('telescopeTestApi', 11);
 
 
 --
--- Data for Name: integrations; Type: TABLE DATA; Schema: public; Owner: telescope
---
-
-INSERT INTO public.integrations VALUES (6, 8, 'https://central-stackrox.apps.test-env.aws.project-telescope.com/v1/compliance/runresults?standardId=ocp4-cis&clusterId=569a487a-1cdd-4431-8ab3-0528e10b2124', '', '', 'eyJhbGciOiJSUzI1NiIsImtpZCI6Imp3dGswIiwidHlwIjoiSldUIn0.eyJhdWQiOlsiaHR0cHM6Ly9zdGFja3JveC5pby9qd3Qtc291cmNlcyNhcGktdG9rZW5zIl0sImV4cCI6MTcxNTI0NDcyNiwiaWF0IjoxNjgzNzA4NzI2LCJpc3MiOiJodHRwczovL3N0YWNrcm94LmlvL2p3dCIsImp0aSI6ImRlZGQ1OTU0LTI4NTAtNGJlNi04ZmQyLWFmNmZmNWM0OTAzOSIsIm5hbWUiOiJzdGFja3JveC1jaHJpc2oiLCJyb2xlcyI6WyJBZG1pbiJdfQ.WM-7WVofWSvQmHUj6dnw8Ao5AkRbKGCMSFIcil-gJEUt1Zvmx0Ug4q1X_-6zD-Qk-RQ9nZUmbLCWc2YJOYECICaFkwSRrZecT19HOMpK6sed-lK6zvksxtaijP0HXbn_e7GGHzj-n8XzZG15WFtwbkNbwucNH6brl8MXmioQslphNYWvb_MHl-Ix3evV_1IVBfF4q4C_A5u6kXqb-SoCw65AHOBHAU23XCwvsi5PIyB7qYTggLW1ee4j2WxF3_YVSsH-ivA6qRXR_zZu1_tCXYQFZ8Vrrw0FMBYuPYNLlrZ1MDPSUn5misUl-I8PeHMxDeVON3yUAqOEGNjYTXiPkgWh8hlgUo1vdVK-tKokSa5n1b8i6JmjOSgRpA5TGVfRJxLul3TJH9JZn0hBAjMeXsAM6O_fDkWwda-Hg9Mvtk_M9bCp4y8dIZx4A4A4x-sfq2VuGezGM-mX1hlkYIY043BViGc3C2Pw-GO_Yzt-wOeLj37ALivGEN7vG5ozQKa265_jdzPLmGBY5_fsYfJgOKMdZ3KCl7sw0CQ86Gwq2CYb4PfitYPKXqeSwgB_a4mpph5TVvJAk_K81nAzuVkiLrj2FqJrnuwmLkec1MAaGKj4NNwMAs08a6Rl01KPn7KVCCgaGaJWevKNyVn1yo_Zy0VQ3eZFjZRacvUWBS0OPdg', '90', '2023-05-11 08:43:44.649431+01', 'RHACS Compliance Score (Telescope)', 1, 'PX8VK');
-INSERT INTO public.integrations VALUES (22, 49, 'https://localhost/alal', 'admin', 'admin', '', 'Yes', NULL, 'CJ Test', NULL, 'EQTVW');
-
-
---
 -- Data for Name: profiles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
