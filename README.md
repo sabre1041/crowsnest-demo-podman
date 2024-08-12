@@ -28,7 +28,7 @@ CONTAINER ID  IMAGE                                        COMMAND         CREAT
 ```    
 
 ## Import the data
-```$ podman exec -i -u postgres postgresql psql < telescope-kenny.sql```
+```$ podman exec -i -u postgres postgresql psql < crowsnest-data.sql```
 
 ### Check:
 ```    
