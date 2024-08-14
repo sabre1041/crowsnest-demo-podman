@@ -182,11 +182,11 @@ print '
   <input type="radio" name="tabset" id="tab3" aria-controls="integrations">
   <label for="tab3" >Integrations</label>
 
-  <input type="radio" name="tabset" id="tab4" aria-controls="domains">
-  <label for="tab4" >Domains</label>
+  <input type="radio" name="tabset" id="tab4" aria-controls="capabilities">
+  <label for="tab4" >Capabilities</label>
 
-  <input type="radio" name="tabset" id="tab5" aria-controls="capabilities">
-  <label for="tab5" >Capabilities</label>
+  <input type="radio" name="tabset" id="tab5" aria-controls="domains">
+  <label for="tab5" >Domains</label>
 
   <input type="radio" name="tabset" id="tab6" aria-controls="profiles">
   <label for="tab6" >Profiles</label>

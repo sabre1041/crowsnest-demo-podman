@@ -27,10 +27,10 @@ if (isset($_POST['toggle_submit'])) {
     <body>
 <?php
 
-$pg_host = getenv('POSTGRESQL_HOST');
-$pg_db = getenv('POSTGRESQL_DATABASE');
-$pg_user = getenv('POSTGRESQL_USER');
-$pg_passwd = getenv('POSTGRESQL_PASSWORD');
+$pg_host = getenv('PG_HOST');
+$pg_db = getenv('PG_DATABASE');
+$pg_user = getenv('PG_USER');
+$pg_passwd = getenv('PG_PASSWORD');
 
 $db_connection = pg_connect("host=$pg_host port=5432  dbname=$pg_db user=$pg_user password=$pg_passwd");
 include 'functions.php';
@@ -397,72 +397,6 @@ print '
     </section>
 <!--  End of Add Integrations -->  
   
-<!--  Start of Domains -->  
-<section id="domains" class="tab-panel">
-<div class="pf-l-grid pf-m-gutter">
-  <div class="pf-l-grid__item pf-m-6-col">
-<p class="pf-c-title pf-m-2xl">Domains</p>
-<p class="pf-c-title pf-m-md"><span class="red">WARNING</span> - Deleting a domain will also delete all child capabilities</p>
-<table class="pf-c-table pf-m-compact pf-m-grid-md" role="grid" id="table-sortable">
-  <thead>
-    <tr role="row">
-      <th class="pf-c-table__sort pf-m-selected " role="columnheader" aria-sort="ascending" scope="col">
-        <button class="pf-c-table__button">
-          <div class="pf-c-table__button-content">
-            <span class="pf-c-table__text">Domain</span>
-          </div>
-        </button>
-      </th>     
-      <th class="pf-c-table__sort pf-m-selected " role="columnheader" aria-sort="ascending" scope="col">
-        <button class="pf-c-table__button">
-          <div class="pf-c-table__button-content">
-            <span class="pf-c-table__text">Delete Domain</span>
-          </div>
-        </button>
-      </th>     
-    </tr>
-      </thead>
-  <tbody role="rowgroup">
-<?php
-$qq = "select description,id from domain order by description";
-$result = pg_query($qq) or die('Error message: ' . pg_last_error());
-
-while ($row = pg_fetch_assoc($result)) {
-print '
-    <tr role="row">
-      <td role="cell" data-label="method">' . $row['description'] . '</td>
-      <td role="cell" data-label="deleteDomain"> <a aria-label="Delete" href="delete.php?id=' . $row['id'] . '&table=domain&idColumn=id" class="confirmation"> <i class="fa fa-trash"></i></a> </td>
-    </tr>
-';
-}
-?>
-  </tbody>
-</table>
-<br>
-<p id="integrations" class="pf-c-title pf-m-2l">Add Domain</p>
-<form  class="pf-c-form" action="addDomain.php">
-  <div class="pf-c-form__group">
-    <div class="pf-c-form__group-label">
-      <label class="pf-c-form__label" for="horizontal-form-name">
-        <span class="pf-c-form__label-text">Domain Name</span>
-        <span class="pf-c-form__label-required" aria-hidden="true">&#42;</span>
-      </label>
-    </div>
-    <div class="pf-c-form__group-control">
-      <input class="pf-c-form-control" required type="text" id="domain" name="domain" aria-describedby="horizontal-form-name-helper2" />
-    </div>
-  </div>
-     <div class="pf-c-form__group">
-    <div class="pf-c-form__actions">
-      <button class="pf-c-button pf-m-primary" type="submit">Add Domain</button>
-    </div>
-  </div>  
-  </form>
-  </div>
-  </div>
-</section>
-<!--  End of Domains -->  
-
 <!--  Start of Capabilities -->  
 <section id="capabilities" class="tab-panel">
 <div class="pf-l-grid pf-m-gutter">
@@ -550,6 +484,72 @@ print '
   </form>
 </section>
 <!--  End of Capabilities -->  
+
+<!--  Start of Domains -->  
+<section id="domains" class="tab-panel">
+<div class="pf-l-grid pf-m-gutter">
+  <div class="pf-l-grid__item pf-m-6-col">
+<p class="pf-c-title pf-m-2xl">Domains</p>
+<p class="pf-c-title pf-m-md"><span class="red">WARNING</span> - Deleting a domain will also delete all child capabilities</p>
+<table class="pf-c-table pf-m-compact pf-m-grid-md" role="grid" id="table-sortable">
+  <thead>
+    <tr role="row">
+      <th class="pf-c-table__sort pf-m-selected " role="columnheader" aria-sort="ascending" scope="col">
+        <button class="pf-c-table__button">
+          <div class="pf-c-table__button-content">
+            <span class="pf-c-table__text">Domain</span>
+          </div>
+        </button>
+      </th>     
+      <th class="pf-c-table__sort pf-m-selected " role="columnheader" aria-sort="ascending" scope="col">
+        <button class="pf-c-table__button">
+          <div class="pf-c-table__button-content">
+            <span class="pf-c-table__text">Delete Domain</span>
+          </div>
+        </button>
+      </th>     
+    </tr>
+      </thead>
+  <tbody role="rowgroup">
+<?php
+$qq = "select description,id from domain order by description";
+$result = pg_query($qq) or die('Error message: ' . pg_last_error());
+
+while ($row = pg_fetch_assoc($result)) {
+print '
+    <tr role="row">
+      <td role="cell" data-label="method">' . $row['description'] . '</td>
+      <td role="cell" data-label="deleteDomain"> <a aria-label="Delete" href="delete.php?id=' . $row['id'] . '&table=domain&idColumn=id" class="confirmation"> <i class="fa fa-trash"></i></a> </td>
+    </tr>
+';
+}
+?>
+  </tbody>
+</table>
+<br>
+<p id="integrations" class="pf-c-title pf-m-2l">Add Domain</p>
+<form  class="pf-c-form" action="addDomain.php">
+  <div class="pf-c-form__group">
+    <div class="pf-c-form__group-label">
+      <label class="pf-c-form__label" for="horizontal-form-name">
+        <span class="pf-c-form__label-text">Domain Name</span>
+        <span class="pf-c-form__label-required" aria-hidden="true">&#42;</span>
+      </label>
+    </div>
+    <div class="pf-c-form__group-control">
+      <input class="pf-c-form-control" required type="text" id="domain" name="domain" aria-describedby="horizontal-form-name-helper2" />
+    </div>
+  </div>
+     <div class="pf-c-form__group">
+    <div class="pf-c-form__actions">
+      <button class="pf-c-button pf-m-primary" type="submit">Add Domain</button>
+    </div>
+  </div>  
+  </form>
+  </div>
+  </div>
+</section>
+<!--  End of Domains -->  
 
 <!--  Start of Profiles -->  
 <section id="profiles" class="tab-panel">
