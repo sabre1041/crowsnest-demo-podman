@@ -22,16 +22,29 @@ header('Location: index.php');
               <title>CrowsNest Login</title>
             </head>
             <body>
-              <div
-  class="pf-v5-c-background-image"
+ <!--           <header class="pf-c-page__header">
+                <div class="pf-c-page__header-brand">
+                  <div class="pf-c-page__header-brand-toggle">
+                  </div>
+                  <a class="pf-c-page__header-brand-link" href="index.php">
+                  <img class="pf-c-brand" src="images/crowsnest-banner.png" alt="CrowsNest logo" width="500" height="600" />
+                  </a>
+                </div>
+</header>
+-->
 
+              <div
+  class="pf-v5-c-background-image" 
 ></div>
+
+
 <div class="pf-v5-c-login">
   <div class="pf-v5-c-login__container">
     <main class="pf-v5-c-login__main">
       <header class="pf-v5-c-login__main-header">
-        <h1 class="pf-v5-c-title pf-m-3xl">Log in to your CrowsNest account</h1>
-      </header>
+        <h1 class="pf-v5-c-title pf-m-3xl">Login to CrowsNest Seer</h1>
+        <img src="images/crowsnest-logo-small.png">  
+    </header>
       <div class="pf-v5-c-login__main-body">
         <form class="pf-v5-c-form" novalidate action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
           <div class="pf-v5-c-form__helper-text" aria-live="polite">
@@ -62,7 +75,22 @@ header('Location: index.php');
               />
             </span>
           </div>
-          
+          <div class="pf-v5-c-form__group"><label class="pf-v5-c-form__label" for="username">
+              <span class="pf-v5-c-form__label-text">Password</span>&nbsp;<span
+                class="pf-v5-c-form__label-required"
+                aria-hidden="true"
+              >&#42;</span></label>
+
+            <span class="pf-v5-c-form-control pf-m-required">
+              <input
+                required
+                input="true"
+                type="password"
+                id="password"
+                name="password"
+              />
+            </span>
+          </div>
           
           <div class="pf-v5-c-form__group pf-m-action">
             <button
