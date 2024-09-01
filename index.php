@@ -27,10 +27,10 @@ if (isset($_POST['toggle_submit'])) {
     <body>
 <?php
 
-$pg_host = getenv('PG_HOST');
-$pg_db = getenv('PG_DATABASE');
-$pg_user = getenv('PG_USER');
-$pg_passwd = getenv('PG_PASSWORD');
+$pg_host = getenv('POSTGRESQL_HOST');
+$pg_db = getenv('POSTGRESQL_DATABASE');
+$pg_user = getenv('POSTGRESQL_USER');
+$pg_passwd = getenv('POSTGRESQL_PASSWORD');
 
 $db_connection = pg_connect("host=$pg_host port=5432  dbname=$pg_db user=$pg_user password=$pg_passwd");
 include 'functions.php';
