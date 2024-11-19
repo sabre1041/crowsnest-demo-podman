@@ -1,4 +1,5 @@
-# cn-robert
+# crowsnest-demo-podman
+A simple demo of Crowsnest functionality using podman.
 
 ## Create a network
 ```$ podman network create crowsnest```
