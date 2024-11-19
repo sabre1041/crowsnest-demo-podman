@@ -95,7 +95,7 @@ localhost/crowsnest                           latest            0b18d14f7740  10
 
 ## Run the app
 ```
-$ podman run -p 8080:8080 --network crowsnest --env=PG_PASSWORD=passw0rd --env=PG_USER=telescope --env=PG_DATABASE=postgres --env=PG_HOST=postgresql localhost/crowsnest
+$ podman run -p 8080:8080 --network crowsnest --env=POSTGRESQL_PASSWORD=passw0rd --env=POSTGRESQL_USER=telescope --env=POSTGRESQL_DATABASE=postgres --env=POSTGRESQL_HOST=postgresql localhost/crowsnest
 
 [Thu May 30 06:34:02 2024] PHP 8.1.27 Development Server (http://0.0.0.0:8080) started
 ```
