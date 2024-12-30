@@ -1,19 +1,22 @@
 <?php
 
-$pg_host = getenv('POSTGRESQL_HOST');
-$pg_db = getenv('POSTGRESQL_DATABASE');
-$pg_user = getenv('POSTGRESQL_USER');
-$pg_passwd = getenv('POSTGRESQL_PASSWORD');
+include "functions.php";
 
-$db_connection = pg_connect("host=$pg_host port=5432  dbname=$pg_db user=$pg_user password=$pg_passwd");
+$integration_request = new stdClass();
+$integration_request->name = $_REQUEST["integration-name"];
+$integration_request->capability = $_REQUEST["capability-id"];
+$integration_request->user = $_REQUEST["username"];
+$integration_request->password = $_REQUEST["password"];
+$integration_request->token = $_REQUEST["token"];
+$integration_request->successCriteria = $_REQUEST["success-criteria"];
+$integration_request->hash = $_REQUEST["hash"];
 
-$qq = "INSERT into integrations (integration_name, capability_id, url, \"user\", password, token, success_criteria, hash) VALUES ('" . $_REQUEST['integration-name'] . "', '" . $_REQUEST['capability-id'] . "', '" . $_REQUEST['endpoint-url'] . "', '" . $_REQUEST['username'] . "', '" . $_REQUEST['password'] . "', '" . $_REQUEST['token'] . "', '" . $_REQUEST['success-criteria'] . "', '" . $_REQUEST['hash'] . "')";
-
-$result = pg_query($db_connection, $qq);
-
+invokeCrowsNestAPI(
+    "/api/integrations",
+    "POST",
+    json_encode($integration_request)
+);
 
 header("Location: index.php");
-
-
 
 ?>

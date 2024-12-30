@@ -1,15 +1,12 @@
 <?php
-$pg_host = getenv('POSTGRESQL_HOST');
-$pg_db = getenv('POSTGRESQL_DATABASE');
-$pg_user = getenv('POSTGRESQL_USER');
-$pg_passwd = getenv('POSTGRESQL_PASSWORD');
+include 'functions.php';
+
 $domain = htmlspecialchars($_REQUEST['domain'], ENT_QUOTES, 'UTF-8');
 
-$db_connection = pg_connect("host=$pg_host port=5432  dbname=$pg_db user=$pg_user password=$pg_passwd");
+$domain_request = new stdClass();
+$domain_request->description = $domain;
 
-$qq = "INSERT into domain (description) VALUES ('" . $domain . "')";
-
-$result = pg_query($db_connection, $qq);
+invokeCrowsNestAPI("/api/domains", "POST", json_encode($domain_request));
 
 header("Location: index.php");
 

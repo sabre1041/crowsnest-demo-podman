@@ -1,29 +1,35 @@
 <?php
 
-$pg_host = getenv('POSTGRESQL_HOST');
-$pg_db = getenv('POSTGRESQL_DATABASE');
-$pg_user = getenv('POSTGRESQL_USER');
-$pg_passwd = getenv('POSTGRESQL_PASSWORD');
+include 'functions.php';
 
-$db_connection = pg_connect("host=$pg_host port=5432  dbname=$pg_db user=$pg_user password=$pg_passwd");
-$qq="";
-foreach($_REQUEST as $key => $val) {
-if ($val == "1") {
-	$flag_id = "2";
-} else {
-	$flag_id = "1";
+$color = "";
+foreach ($_REQUEST as $key => $val) {
+    if ($val == "1") {
+        $color = "green";
+    } else {
+        $color = "red";
+    }
+    $requestedFlag = invokeCrowsNestAPI(
+        sprintf("/api/flags?description=%s", urlencode($color))
+    );
+
+    $flag_id = $requestedFlag[0]["id"];
+
+    $explode = explode("-", $key);
+    $capability = $explode[1];
+
+    $capability_request = new stdClass();
+    $capability_request->id = $capability;
+    $capability_request->flag = intval($flag_id);
+
+    invokeCrowsNestAPI(
+        sprintf("/api/capabilities/%s", $capability),
+        "PUT",
+        json_encode($capability_request));
+
 }
 
-$explode = explode("-",$key);
-$capablity = $explode[1]; 
-$qq .= "UPDATE capability set flag_id = $flag_id  where id = $capablity;"; 
-}
-
-$result = pg_query($db_connection, $qq);
-
-$refefer = $_SERVER['HTTP_REFERER'];
+$refefer = $_SERVER["HTTP_REFERER"];
 header("Location: $refefer");
-
-
 
 ?>

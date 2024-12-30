@@ -1,40 +1,23 @@
 <?php
 
-$pg_host = getenv('POSTGRESQL_HOST');
-$pg_db = getenv('POSTGRESQL_DATABASE');
-$pg_user = getenv('POSTGRESQL_USER');
-$pg_passwd = getenv('POSTGRESQL_PASSWORD');
-$profile = htmlspecialchars($_REQUEST['profileName'], ENT_QUOTES, 'UTF-8');
+include "functions.php";
 
-$db_connection = pg_connect("host=$pg_host port=5432  dbname=$pg_db user=$pg_user password=$pg_passwd");
+$profile = htmlspecialchars($_REQUEST["profileName"], ENT_QUOTES, "UTF-8");
 
-#print_r($_GET);
-
-## Add the profile first
-$qq = "INSERT into profiles (name) VALUES ('" . $profile . "')";
-$result = pg_query($db_connection, $qq);
-
-$qq2 = "SELECT id from profiles where name = '" . $profile . "'";
-$result2 = pg_query($db_connection, $qq2);
-$row = pg_fetch_row($result2); 
-$profileId = $row[0];
-
-$qq = "";
-foreach($_GET as $name => $options) {
-if ($options == '1') {
-print $name . " " . $options . "<br>";
-$domainNumber = substr($name,6);
-print $domainNumber . "<br>";
-$qq .= "UPDATE profiles SET domains = array_append(domains,'" . $domainNumber . "') WHERE id = '" . $profileId . "';";
+$domains = [];
+foreach ($_GET as $name => $options) {
+    if ($options == "1") {
+        $domainNumber = substr($name, 6);
+        print $domainNumber . "<br>";
+        array_push($domains, intval($domainNumber));
+    }
 }
+$profile_request = new stdClass();
+$profile_request->name = $profile;
+$profile_request->domains = $domains;
 
-}
-
-## Add/append the domains for the specific profile
-$result = pg_query($db_connection, $qq);
+invokeCrowsNestAPI("/api/profiles", "POST", json_encode($profile_request));
 
 header("Location: index.php");
-
-
 
 ?>
