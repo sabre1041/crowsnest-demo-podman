@@ -27,12 +27,6 @@ if (isset($_POST['toggle_submit'])) {
     <body>
 <?php
 
-$pg_host = getenv('POSTGRESQL_HOST');
-$pg_db = getenv('POSTGRESQL_DATABASE');
-$pg_user = getenv('POSTGRESQL_USER');
-$pg_passwd = getenv('POSTGRESQL_PASSWORD');
-
-$db_connection = pg_connect("host=$pg_host port=5432  dbname=$pg_db user=$pg_user password=$pg_passwd");
 include 'functions.php';
 ?>    
     
@@ -109,11 +103,8 @@ $profile = $_SESSION['profile'];
 $chosenDomains = getDomainsByProfile($profile);
 $i = 1;
 foreach ($chosenDomains as $domain) {
-// $getDomains = "select domain.description, domain.id from domain WHERE domain.id = '" . $domain . "' ORDER BY domain.description;";
-// $domainResult = pg_query($getDomains) or die('Error message: ' . pg_last_error());
 $domainResult = invokeCrowsNestAPI(sprintf("/api/domains/%s", $domain));
 if (!array_key_exists("code", $domainResult)) {
-// while ($row = pg_fetch_assoc($domainResult)) {
 print '  
 <div class="pf-c-card pf-m-selectable-raised pf-m-rounded" id="card-' . $i . '">
 <div class="pf-c-card__header">';
@@ -128,15 +119,12 @@ print '
           </div>
           <div class="pf-c-card__body">
           <div class="pf-c-content">';
-	// $getCapabilities = "select capability.id as id, capability.description as capability, flag.description as flag from capability,flag where domain_id = '" . $domainResult['id'] . "' and capability.flag_id = flag.id ORDER BY capability;";
-	// $capabilityResult = pg_query($getCapabilities) or die('Error message: ' . pg_last_error());
   $capabilityResult = invokeCrowsNestAPI(sprintf("/api/capabilities/domain/%s", $domainResult['id']));
 	foreach ($capabilityResult as $capRow) {
        print putIcon($capRow['flag'], $capRow['description']);
      }
        $i++;
 print "</div></div></div>";
-// }
 }
 }
 ?>
@@ -248,8 +236,6 @@ print "</div></div></div>";
   </thead>
   <tbody role="rowgroup">
 <?php
-// $qq = "SELECT integrations.integration_id, capability.description as capability , integrations.integration_name, integrations.url as url, integrations.last_update as updated, success_criteria, integrations.hash as hash from capability,integrations WHERE integrations.capability_id = capability.id";
-#print $qq;
 $result = invokeCrowsNestAPI("/api/integrations/capability");
 
 ## Add to table
@@ -311,7 +297,6 @@ print '
       <?php
 
 $profile = $_SESSION['profile'];
-      // $qq = "select domain.description as domain, capability.description as capability, capability.id as capabilityId from domain,capability where domain.id = capability.domain_id;";
 $result = invokeCrowsNestAPI("/api/capabilities/domain");
 foreach ($result as $row) {
 $str = $row['domainName'] . " - " . $row['name'];
@@ -408,9 +393,6 @@ print '
 <br>
 
 <?php
-#$qq = "select capability.description as capability,capability.id as capabilityid,capability.domain_id,domain.description as domain from capability, domain WHERE domain.id = capability.domain_id order by domain";
-// $qq = "select description from domain order by description";
-// $result = pg_query($qq) or die('Error message: ' . pg_last_error());
 $result = invokeCrowsNestAPI("/api/domains");
 
 foreach ($result as $row) {
@@ -418,15 +400,11 @@ print '
 <details class="details">
       <summary class="summary">' . $row['description'] . '</summary>
       <ul>';
-// $qq2 = "select capability.description as capability,capability.id as capabilityid,capability.domain_id,domain.description as domain from capability, domain WHERE domain.id = capability.domain_id and domain.description =  '" . $row['description'] . "' order by domain";      
 
 $result2 = invokeCrowsNestAPI(sprintf("/api/capabilities/domains?description=%s", urlencode($row['description'])));
 foreach ($result2 as $row2) {
 
 ## Check if there is an integration for the capability
-// $integrationQuery = "select count(*) as total from integrations where capability_id = '" . $row2['capabilityid'] . "'";
-
-// $integrationResult = pg_query($integrationQuery) or die('Error message: ' . pg_last_error());
 $integrationResult = invokeCrowsNestAPI(sprintf("/api/integrations/capability/%s/count", $row2['id']));
 $intCount = $integrationResult['count'];
 
@@ -466,7 +444,6 @@ print '<li><span role="cell" data-label="deleteCapability"> <a aria-label="Delet
       </label>
       <select class="pf-c-form-control" id="domainId" name="domainId">
       <?php
-      // $qq = "select description,id from domain order by description;";
 $result = invokeCrowsNestAPI("/api/domains");
 foreach ($result as $row) {
 $str = $row['description'];
@@ -514,7 +491,6 @@ print '
       </thead>
   <tbody role="rowgroup">
 <?php
-// $qq = "select description,id from domain order by description";
 $result = invokeCrowsNestAPI("/api/domains");
 
 foreach ($result as $row) {
@@ -580,8 +556,6 @@ print '
       </thead>
   <tbody role="rowgroup">
 <?php
-// $qq = "select name,id from profiles order by id asc";
-// $result = pg_query($qq) or die('Error message: ' . pg_last_error());
 $result = invokeCrowsNestAPI("/api/profiles");
 
 foreach ($result as $row) {

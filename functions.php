@@ -171,14 +171,10 @@ function putToggleItems($profile)
     $chosenDomains = getDomainsByProfile($profile);
 
     foreach ($chosenDomains as $domainId) {
-        #$selectDomains = "select * from domain ORDER by description;";
         $domain = invokeCrowsNestAPI(sprintf("/api/domains/%s", $domainId));
 
         if (!array_key_exists("code", $domain)) {
-            #$domainResults = pg_query($selectDomains) or die('Error message: ' . pg_last_error());
-            // $domainResults = pg_query($getDomains) or die('Error message: ' . pg_last_error());
             $i = 1;
-            // while ($row = pg_fetch_assoc($domainResults)) {
             print '
 <div class="pf-c-card pf-m-selectable-raised pf-m-rounded" id="card-' .
                 $i .
@@ -200,8 +196,6 @@ function putToggleItems($profile)
             $capabilities = invokeCrowsNestAPI(
                 sprintf("/api/capabilities/domain/%s", $domainId)
             );
-            // $qq = "select capability.id as id, capability.description as capability, flag.description as flag from capability,flag where domain_id = '" . $domain['id'] . "' and capability.flag_id = flag.id ORDER by capability;";
-            // $result = pg_query($qq) or die('Error message: ' . pg_last_error());
             foreach ($capabilities as $row) {
                 if ($row["flag"] == $greenFlagId) {
                     $checked = "checked";
@@ -210,9 +204,6 @@ function putToggleItems($profile)
                 }
 
                 ## Check if there is an integration for the capability
-                // $integrationQuery = "select count(*) as total from integrations where capability_id = '" . $row['id'] . "'";
-
-                // $integrationResult = pg_query($integrationQuery) or die('Error message: ' . pg_last_error());
                 $integrationResult = invokeCrowsNestAPI(
                     sprintf("/api/integrations/capability/%s/count", $row["id"])
                 );
